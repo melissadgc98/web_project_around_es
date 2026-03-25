@@ -13,4 +13,4 @@ También sería una idea futura poder interactuar con las cartas para poder tene
 
 Para ofrecer un correcto funcionamiento de la página web se necesitaría al menos desarrollar los puntos sugeridos anteriormente.
 
-Enlace a GitHub Pages:
+Enlace a GitHub Pages: https://github.com/melissadgc98/web_project_around_es.git
