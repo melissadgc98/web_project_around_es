@@ -25,10 +25,6 @@ const initialCards = [
   },
 ];
 
-initialCards.forEach(function (element) {
-  console.log(element.name);
-});
-
 const editBtn = document.querySelector(".profile__edit-button");
 const editPopupForm = document.querySelector("#edit-popup");
 const closeEditPopupBtn = editPopupForm.querySelector(".popup__close");
@@ -64,13 +60,26 @@ function handleProfileFormSubmit(evt) {
   closeModal(editPopupForm);
 }
 
-function getCardElement(name="Sin título",link="./images/placeholder.jpg") {
+function getCardElement(
+  name = "Sin título",
+  link = "./images/placeholder.jpg",
+) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector(".card__title").textContent = name;
   cardElement.querySelector(".card__image").src = link;
   return cardElement;
 }
+
+function renderCard(name, link) {
+  const cardElement = getCardElement(name, link);
+  const cardsContainer = document.querySelector(".cards__list");
+  cardsContainer.append(cardElement);
+}
+
+initialCards.forEach(function (element) {
+  renderCard(element.name, element.link);
+});
 
 editBtn.addEventListener("click", function () {
   handleOpenEditModal();
