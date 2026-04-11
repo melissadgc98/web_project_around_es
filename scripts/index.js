@@ -64,6 +64,14 @@ function handleProfileFormSubmit(evt) {
   closeModal(editPopupForm);
 }
 
+function getCardElement(name="Sin título",link="./images/placeholder.jpg") {
+  const cardTemplate = document.querySelector("#card-template").content;
+  const cardElement = cardTemplate.cloneNode(true);
+  cardElement.querySelector(".card__title").textContent = name;
+  cardElement.querySelector(".card__image").src = link;
+  return cardElement;
+}
+
 editBtn.addEventListener("click", function () {
   handleOpenEditModal();
 });

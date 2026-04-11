@@ -4,7 +4,7 @@ Página Web Around the US
 
 Descripción: Este proyecto crea una página web para registrar los viajes por Estados Unidos del explorador Jacques Cousteau.
 
-Fucionalidad: La creación de la página web está desarrollada utilizando el lenguaje html y el lenguaje de estilos CSS, previamente proporcionados. Mi intervención en este proyecto va dirigida a la incorporación de javascript para utilizar arrays y darle funcionalidad a la página. En esta iteración incluí el archivo index.js que crea un array con los nombres de las cartas y su link, para después poder hacer la pagina más interactiva.
+Fucionalidad: La creación de la página web está desarrollada utilizando el lenguaje html y el lenguaje de estilos CSS, previamente proporcionados. Mi intervención en este proyecto va dirigida a la incorporación de javascript para utilizar arrays y darle funcionalidad a la página. En esta iteración incluí el archivo index.js que crea un array con los nombres de las cartas y su link, para después poder hacer la pagina más interactiva. También agregué la opción de poder editar el perfil al hacer clic en el botón al lado del nombre.
 
 Mejoras del proyecto: Este proyecto aun cuenta con limitantes,
 
