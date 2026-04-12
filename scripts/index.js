@@ -42,6 +42,10 @@ const newPlaceInput = addCardPopupForm.querySelector(
   ".popup__input_type_card-name",
 );
 const newPlaceImg = addCardPopupForm.querySelector(".popup__input_type_url");
+const popupImage = document.querySelector("#image-popup");
+const popupImageElement = popupImage.querySelector(".popup__image");
+const popupCaptionElement = popupImage.querySelector(".popup__caption");
+const closeImagePopupBtn = popupImage.querySelector(".popup__close");
 
 function openModal(element) {
   element.classList.add("popup_is-opened");
@@ -77,7 +81,14 @@ function handleLikeBtnClick(element) {
 }
 
 function handleDeleteBtnClick(element) {
-  element.closest(".card").remove()
+  element.closest(".card").remove();
+}
+
+function handleImageClick(link, name) {
+  popupImageElement.src = link;
+  popupImageElement.alt = name;
+  popupCaptionElement.textContent = name;
+  openModal(popupImage);
 }
 
 function getCardElement(
@@ -97,6 +108,11 @@ function getCardElement(
   const deleteButton = cardElement.querySelector(".card__delete-button");
   deleteButton.addEventListener("click", function () {
     handleDeleteBtnClick(deleteButton);
+  });
+
+  const imageElement = cardElement.querySelector(".card__image");
+  imageElement.addEventListener("click", function () {
+    handleImageClick(link, name);
   });
 
   return cardElement;
@@ -139,3 +155,7 @@ closeEditPopupBtn.addEventListener("click", function () {
 editPopupForm.addEventListener("submit", handleProfileFormSubmit);
 
 addCardBtn.addEventListener("click", handleCardFormSubmit);
+
+closeImagePopupBtn.addEventListener("click", function () {
+  closeModal(popupImage);
+});
