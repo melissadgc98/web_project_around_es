@@ -157,3 +157,19 @@
     padding: 0;
   }
 }
+
+.form__input-error_active {
+  display: block;
+  color: red;
+  font-size: 12px;
+}
+
+.popup__button:disabled,
+.popup__button:disabled:hover {
+  background-color: #fff;
+  cursor: not-allowed;
+  border-style: solid;
+  border-color: rgb(202, 202, 202);
+  border-width: 1px;
+  color: rgb(202, 202, 202);
+}
