@@ -51,6 +51,10 @@ const popupImageElement = popupImage.querySelector(".popup__image");
 const popupCaptionElement = popupImage.querySelector(".popup__caption");
 const closeImagePopupBtn = popupImage.querySelector(".popup__close");
 
+const addCardPopup = addCardPopupForm.querySelector("#new-card-form");
+const addCardInputs = addCardPopup.querySelectorAll(".popup__input");
+const addCardSubmitBtn = addCardPopup.querySelector(".popup__button");
+
 function openModal(element) {
   element.classList.add("popup_is-opened");
 }
@@ -146,6 +150,7 @@ editBtn.addEventListener("click", function () {
 
 openAddCardPopupBtn.addEventListener("click", function () {
   handleAddCardModal();
+  toggleButtonState(addCardInputs, addCardSubmitBtn);
 });
 
 closeAddCardPopupBtn.addEventListener("click", function () {
@@ -165,17 +170,15 @@ closeImagePopupBtn.addEventListener("click", function () {
 });
 
 const showInputError = (inputElement, errorMessage) => {
-  const errorElement = editPopup.querySelector(
-    `.${inputElement.name}-input-error`,
-  );
+  const form = inputElement.closest("form");
+  const errorElement = form.querySelector(`.${inputElement.name}-input-error`);
   errorElement.textContent = errorMessage;
   errorElement.classList.add("form__input-error_active");
 };
 
 const hideInputError = (inputElement) => {
-  const errorElement = editPopup.querySelector(
-    `.${inputElement.name}-input-error`,
-  );
+  const form = inputElement.closest("form");
+  const errorElement = form.querySelector(`.${inputElement.name}-input-error`);
   errorElement.textContent = "";
   errorElement.classList.remove("form__input-error_active");
 };
@@ -203,5 +206,17 @@ editInputs.forEach(function (input) {
     }
 
     toggleButtonState(editInputs, editSubmitBtn);
+  });
+});
+
+addCardInputs.forEach(function (input) {
+  input.addEventListener("input", function () {
+    if (!input.validity.valid) {
+      showInputError(input, input.validationMessage);
+    } else {
+      hideInputError(input);
+    }
+
+    toggleButtonState(addCardInputs, addCardSubmitBtn);
   });
 });
