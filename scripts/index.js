@@ -169,6 +169,25 @@ closeImagePopupBtn.addEventListener("click", function () {
   closeModal(popupImage);
 });
 
+function handleOverlayClick(evt) {
+  if (evt.target === evt.currentTarget) {
+    closeModal(evt.currentTarget);
+  }
+}
+
+document.addEventListener("click", function (evt) {
+  if (evt.target.classList.contains("popup_is-opened")) {
+    closeModal(evt.target);
+  }
+});
+
+document.addEventListener("keydown", function (evt) {
+  if (evt.key === "Escape") {
+    const openPopup = document.querySelector(".popup_is-opened");
+    if (openPopup) closeModal(openPopup);
+  }
+});
+
 const showInputError = (inputElement, errorMessage) => {
   const form = inputElement.closest("form");
   const errorElement = form.querySelector(`.${inputElement.name}-input-error`);
