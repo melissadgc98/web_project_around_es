@@ -1,3 +1,7 @@
-"rootDir": "./src" 
-"outDir": "./public"
-"allowJs": true
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./public",
+    "allowJs": true
+  }
+}

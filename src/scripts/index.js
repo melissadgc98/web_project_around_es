@@ -100,7 +100,7 @@ function handleImageClick(link, name) {
 
 function getCardElement(
   name = "Sin título",
-  link = "./images/placeholder.jpg",
+  link = "./css/images/placeholder.jpg",
 ) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.cloneNode(true);
