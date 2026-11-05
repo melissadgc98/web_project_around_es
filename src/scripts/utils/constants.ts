@@ -1,4 +1,4 @@
-export const defaultFormConfig = {
+export const configObject = {
     inputSelector: ".popup__input",
     submitButtonSelector: ".popup__button",
     inactiveButtonClass: ".popup__button:disabled",
