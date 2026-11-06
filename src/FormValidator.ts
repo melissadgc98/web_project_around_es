@@ -1,47 +1,70 @@
 import type { ValidationConfig } from "./scripts/utils/constants";
 
 
-class FormValidator {
+export class FormValidator {
+private config: ValidationConfig;
+private formElement: HTMLFormElement;
+private inputList: HTMLInputElement[];
+private buttonElement: HTMLButtonElement;
+
     constructor(config:ValidationConfig, formElement:HTMLFormElement) {
         this.config = config;
         this.formElement = formElement;
-        this.inputList = Array.from(this.formElement.querySelectorAll(this.config.inputSelector));
-        this.buttonElement = this.formElement.querySelector(this.config.submitButtonSelector);
+        this.inputList = Array.from(formElement.querySelectorAll<HTMLInputElement>(config.inputSelector));
+        this.buttonElement = formElement.querySelector(config.submitButtonSelector,) as HTMLButtonElement;
     }
 
-private showInputError(inputElement, errorMessage) {
+private showInputError(inputElement:HTMLInputElement, errorMessage:string) {
   const errorElement = this.formElement.querySelector(`.${inputElement.name}-input-error`);
-  inputElement.classList.add(this.config.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(this.config.errorMsgClass);
 };
 
-private hideInputError(inputElement) {
+private hideInputError(inputElement:HTMLInputElement) {
   const errorElement = this.formElement.querySelector(`.${inputElement.name}-input-error`);
-  inputElement.classList.remove(this.config.inputErrorClass);
   errorElement.classList.remove(this.config.errorMsgClass);
   errorElement.textContent = "";
 };
 
-private checkInputValidity(inputList) {
-  return Array.from(inputList).some(function (input) {
-    return !input.validity.valid;
+private checkInputValidity(input: HTMLInputElement): boolean {
+  return !input.validity.valid;
+}
+
+private toggleButtonState(): void {
+  const hasInvalidInput = this.inputList.some((input) =>
+    this.checkInputValidity(input),
+  );
+
+  this.buttonElement.disabled = hasInvalidInput;
+}
+
+private setEventListeners(): void {
+  this.inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", (event: Event) => {
+      const input = event.currentTarget as HTMLInputElement;
+
+      if (input.validity.valid) {
+        this.hideInputError(input);
+      } else {
+        this.showInputError(input, input.validationMessage);
+      }
+
+      this.toggleButtonState();
+    });
   });
+
+  this.toggleButtonState();
 }
 
-private toggleButtonState(inputList, buttonElement) {
-  if (checkInputValidity(inputList)) {
-    buttonElement.disabled = true;
-    buttonElement.classList.add(this.config.inactiveButtonClass);
-  } else {
-    buttonElement.disabled = false;
-    buttonElement.classList.remove(this.config.inactiveButtonClass);
-  }
-
-public enableValidation(){
-
+public enableValidation(): void {
+  this.setEventListeners();
 }
 
-public resetValidation(){
+public resetValidation(): void {
+  this.inputList.forEach((inputElement) => {
+    this.hideInputError(inputElement);
+  });
 
+  this.toggleButtonState();
+}
 }
