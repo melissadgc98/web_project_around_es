@@ -1,7 +1,7 @@
 export type ValidationConfig = {
   inputSelector: string;
   submitButtonSelector: string;
-  inactiveButtonClass: ".popup__button:disabled",
+  inactiveButtonClass: string;
   errorMsgClass: string;
 };
 
