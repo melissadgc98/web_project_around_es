@@ -5,23 +5,35 @@ export class FormValidator {
 private config: ValidationConfig;
 private formElement: HTMLFormElement;
 private inputList: HTMLInputElement[];
-private buttonElement: HTMLButtonElement;
+private buttonElement: HTMLButtonElement | null;
 
     constructor(config:ValidationConfig, formElement:HTMLFormElement) {
         this.config = config;
         this.formElement = formElement;
         this.inputList = Array.from(formElement.querySelectorAll<HTMLInputElement>(config.inputSelector));
-        this.buttonElement = formElement.querySelector(config.submitButtonSelector,) as HTMLButtonElement;
+        this.buttonElement = formElement.querySelector<HTMLButtonElement>(config.submitButtonSelector);
     }
 
+private getErrorElement(inputElement: HTMLInputElement): HTMLElement {
+  const errorElement = this.formElement.querySelector<HTMLElement>(
+    `.${inputElement.name}-input-error`,
+  );
+
+  if (!errorElement) {
+    throw new Error(`No se encontró el mensaje de error para "${inputElement.name}".`);
+  }
+
+  return errorElement;
+}
+
 private showInputError(inputElement:HTMLInputElement, errorMessage:string) {
-  const errorElement = this.formElement.querySelector(`.${inputElement.name}-input-error`);
+  const errorElement = this.getErrorElement(inputElement);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(this.config.errorMsgClass);
 };
 
 private hideInputError(inputElement:HTMLInputElement) {
-  const errorElement = this.formElement.querySelector(`.${inputElement.name}-input-error`);
+  const errorElement = this.getErrorElement(inputElement);
   errorElement.classList.remove(this.config.errorMsgClass);
   errorElement.textContent = "";
 };
@@ -31,6 +43,10 @@ private checkInputValidity(input: HTMLInputElement): boolean {
 }
 
 private toggleButtonState(): void {
+  if (!this.buttonElement) {
+    throw new Error("No se encontró el botón de envío del formulario.");
+  }
+
   const hasInvalidInput = this.inputList.some((input) =>
     this.checkInputValidity(input),
   );
