@@ -1,8 +1,11 @@
+import type { ValidationConfig } from "./scripts/utils/constants";
+
+
 class FormValidator {
-    constructor(config:unknown, formElement:HTMLElement) {
+    constructor(config:ValidationConfig, formElement:HTMLFormElement) {
         this.config = config;
         this.formElement = formElement;
-        this.inputList = Array.from(this.formElement.querySelectorAll(this._config.inputSelector));
+        this.inputList = Array.from(this.formElement.querySelectorAll(this.config.inputSelector));
         this.buttonElement = this.formElement.querySelector(this.config.submitButtonSelector);
     }
 
