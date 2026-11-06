@@ -4,32 +4,33 @@ export interface SectionRenderer<T> {
 }
 
 export class Section<T> {
-  private _items: T[];
-  private _renderer: (item: T) => HTMLElement;
-  private _container: HTMLElement;
+  private items: T[];
+  private renderer: (item: T) => HTMLElement;
+  private container: HTMLElement;
 
   constructor(
     { items, renderer }: SectionRenderer<T>,
     containerSelector: string,
   ) {
-    this._items = items;
-    this._renderer = renderer;
+    this.items = items;
+    this.renderer = renderer;
 
-    const container = document.querySelector<HTMLElement>(containerSelector);
-    if (!container) {
+    const containerElement =
+      document.querySelector<HTMLElement>(containerSelector);
+    if (!containerElement) {
       throw new Error(`No se encontró el contenedor "${containerSelector}".`);
     }
 
-    this._container = container;
+    this.container = containerElement;
   }
 
   public renderItems(): void {
-    this._items.forEach((item) => {
-      this.addItem(this._renderer(item));
+    this.items.forEach((item) => {
+      this.addItem(this.renderer(item));
     });
   }
 
   public addItem(element: HTMLElement): void {
-    this._container.append(element);
+    this.container.append(element);
   }
 }

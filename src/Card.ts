@@ -6,30 +6,30 @@ export interface CardData {
 export type CardClickHandler = (link: string, name: string) => void;
 
 export class Card {
-  private _data: CardData;
-  private _cardElement: HTMLElement;
-  private _handleCardClick: CardClickHandler;
+  private data: CardData;
+  private cardElement: HTMLElement;
+  private handleCardClick: CardClickHandler;
 
   constructor(
     data: CardData,
     templateSelector: string,
     handleCardClick: CardClickHandler,
   ) {
-    this._data = data;
-    this._handleCardClick = handleCardClick;
-    this._cardElement = this._getTemplate(templateSelector);
+    this.data = data;
+    this.handleCardClick = handleCardClick;
+    this.cardElement = this.getTemplate(templateSelector);
 
-    const titleElement = this._getElement<HTMLHeadingElement>(".card__title");
-    const imageElement = this._getElement<HTMLImageElement>(".card__image");
+    const titleElement = this.getElement<HTMLHeadingElement>(".card__title");
+    const imageElement = this.getElement<HTMLImageElement>(".card__image");
 
-    titleElement.textContent = this._data.name;
-    imageElement.src = this._data.link;
-    imageElement.alt = this._data.name;
+    titleElement.textContent = this.data.name;
+    imageElement.src = this.data.link;
+    imageElement.alt = this.data.name;
 
-    this._setEventListeners();
+    this.setEventListeners();
   }
 
-  private _getTemplate(templateSelector: string): HTMLElement {
+  private getTemplate(templateSelector: string): HTMLElement {
     const templateElement =
       document.querySelector<HTMLTemplateElement>(templateSelector);
 
@@ -47,8 +47,8 @@ export class Card {
     return cardElement.cloneNode(true) as HTMLElement;
   }
 
-  private _getElement<T extends Element>(selector: string): T {
-    const element = this._cardElement.querySelector<T>(selector);
+  private getElement<T extends Element>(selector: string): T {
+    const element = this.cardElement.querySelector<T>(selector);
 
     if (!element) {
       throw new Error(`No se encontró "${selector}" en la plantilla de tarjeta.`);
@@ -57,17 +57,17 @@ export class Card {
     return element;
   }
 
-  private _setEventListeners(): void {
-    const imageElement = this._getElement<HTMLImageElement>(".card__image");
-    const likeButton = this._getElement<HTMLButtonElement>(
+  private setEventListeners(): void {
+    const imageElement = this.getElement<HTMLImageElement>(".card__image");
+    const likeButton = this.getElement<HTMLButtonElement>(
       ".card__like-button",
     );
-    const deleteButton = this._getElement<HTMLButtonElement>(
+    const deleteButton = this.getElement<HTMLButtonElement>(
       ".card__delete-button",
     );
 
     imageElement.addEventListener("click", () => {
-      this._handleCardClick(this._data.link, this._data.name);
+      this.handleCardClick(this.data.link, this.data.name);
     });
 
     likeButton.addEventListener("click", () => {
@@ -75,11 +75,11 @@ export class Card {
     });
 
     deleteButton.addEventListener("click", () => {
-      this._cardElement.remove();
+      this.cardElement.remove();
     });
   }
 
   public generateCard(): HTMLElement {
-    return this._cardElement;
+    return this.cardElement;
   }
 }
