@@ -17,3 +17,14 @@ Poder personalizar el blog (cambiar color de fondo, cambiar el orden de las tarj
 Por el momento la página es completamente funcional, pero no ofrece funcionalidades más allá de lo que es visible.
 
 Enlace a GitHub Pages: https://github.com/melissadgc98/web_project_around_es.git
+
+## Compilación
+
+Instala las dependencias y compila TypeScript antes de servir el contenido de `public`:
+
+```bash
+npm install
+npm run build
+```
+
+La compilación genera `public/index.js` y los módulos que importa.
